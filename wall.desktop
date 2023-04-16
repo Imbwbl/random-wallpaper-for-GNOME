@@ -2,7 +2,7 @@
 Type=Application
 Version=1.0
 Name=wall
-GenericName=Funny Game
+GenericName=wall
 Comment=wallpaper
 Icon=wallpaper
 Exec=wall
