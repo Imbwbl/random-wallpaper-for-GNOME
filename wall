@@ -1,7 +1,9 @@
 #!/usr/bin/bash
 TEMP_DIR=$(mktemp -d)
-Number=$(curl -sL https://wallhaven.cc/api/v1/collections/bwbl/1506448 | jq .meta.total)
-RANDOM_IMAGE=$(curl -sL https://wallhaven.cc/api/v1/collections/bwbl/1506448 | jq .data[$((0 + $RANDOM % Number))])
+COLLECTION_ID=1506448
+USERNAME="bwbl"
+Number=$(curl -sL https://wallhaven.cc/api/v1/collections/$USERNAME/$COLLECTION_ID | jq .meta.total)
+RANDOM_IMAGE=$(curl -sL https://wallhaven.cc/api/v1/collections/$USERNAME/$COLLECTION_ID | jq .data[$((0 + $RANDOM % Number))])
 RANDOM_IMAGE_URL=$(echo $RANDOM_IMAGE | jq .path | sed 's/"//g')
 RANDOM_IMAGE_TYPE=$(echo $RANDOM_IMAGE | jq .file_type)
 
