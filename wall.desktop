@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=wall
+GenericName=Funny Game
+Comment=wallpaper
+Icon=wallpaper
+Exec=wall
+Terminal=false
+Categories=Utility;
+Keywords=system;process;task

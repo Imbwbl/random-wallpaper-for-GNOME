@@ -1,0 +1,24 @@
+#!/usr/bin/bash
+TEMP_DIR=$(mktemp -d)
+Number=$(curl -sL https://wallhaven.cc/api/v1/collections/bwbl/1506448 | jq .meta.total)-1
+RANDOM_IMAGE=$(curl -sL https://wallhaven.cc/api/v1/collections/bwbl/1506448 | jq .data[$((0 + $RANDOM % Number))])
+RANDOM_IMAGE_URL=$(echo $RANDOM_IMAGE | jq .path | sed 's/"//g')
+RANDOM_IMAGE_TYPE=$(echo $RANDOM_IMAGE | jq .file_type)
+
+cd $TEMP_DIR
+echo $RANDOM_IMAGE_URL
+echo $RANDOM_IMAGE_TYPE
+
+if [ "$RANDOM_IMAGE_TYPE" == '"image/jpeg"' ]; then
+    echo "jpeg"
+    curl -sL $RANDOM_IMAGE_URL -o wall.jpg
+    echo $?
+    gsettings set org.gnome.desktop.background picture-uri-dark $TEMP_DIR/wall.jpg
+    gsettings set org.gnome.desktop.background picture-uri $TEMP_DIR/wall.jpg
+elif [ "$RANDOM_IMAGE_TYPE" == '"image/png"' ]; then
+    echo "jpeg"
+    curl -sL $RANDOM_IMAGE_URL -o wall.png
+    echo $?
+    gsettings set org.gnome.desktop.background picture-uri-dark $TEMP_DIR/wall.png
+    gsettings set org.gnome.desktop.background picture-uri $TEMP_DIR/wall.png
+fi
